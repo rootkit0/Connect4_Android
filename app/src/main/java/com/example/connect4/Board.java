@@ -31,21 +31,26 @@ public class Board {
         return false;
     }
 
-    public Position play(int column, Player player) {
+    public Position occupyCell(int column, Player player) {
         if(canPlayColumn(column)) {
             if(player.isPlayer1()) {
-                this.cells[lastEmptyRow(column)][column] = Player.player1();
+                this.cells[firstEmptyRow(column)][column] = Player.player1();
 
             }
             else {
-                this.cells[lastEmptyRow(column)][column] = Player.player2();
+                this.cells[firstEmptyRow(column)][column] = Player.player2();
             }
-            return new Position(lastEmptyRow(column), column);
+            return new Position(firstEmptyRow(column), column);
         }
-        else return null;
+        else {
+            if(player.isPlayer1()) {
+                //Aviso por pantalla columna llena
+            }
+            return null;
+        }
     }
 
-    public int lastEmptyRow(int column) {
+    public int firstEmptyRow(int column) {
         if(column < 0 || column > this.numRows) return -1;
         if(canPlayColumn(column)) {
             for(int i=this.numRows-1; i>=0; --i){
