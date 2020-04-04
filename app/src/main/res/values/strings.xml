@@ -12,9 +12,9 @@
     <string name="options_text2">Apodo</string>
     <string name="options_input1">Introduce tu apodo</string>
     <string name="options_text3">Tamaño del tablero</string>
-    <string name="options_group1">7</string>
-    <string name="options_group2">6</string>
-    <string name="options_group3">5</string>
+    <string name="options_group1">7x7</string>
+    <string name="options_group2">6x6</string>
+    <string name="options_group3">5x5</string>
     <string name="options_switch1">Temporizador</string>
     <string name="options_button1">Empezar la partida!</string>
 </resources>
