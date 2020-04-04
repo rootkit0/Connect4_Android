@@ -16,7 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AjudaActivity">
+        <activity android:name=".HelpActivity">
+        </activity>
+        <activity android:name=".GameOptionsActivity">
+        </activity>
+        <activity android:name=".GameActivity">
         </activity>
     </application>
 </manifest>

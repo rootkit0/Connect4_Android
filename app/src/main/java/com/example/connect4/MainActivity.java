@@ -27,15 +27,15 @@ public class MainActivity extends AppCompatActivity {
     private class startGame implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-
+            Intent i = new Intent(MainActivity.this, GameOptionsActivity.class);
+            startActivity(i);
         }
     }
 
     private class gameRules implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            //Create intent to run second activity
-            Intent i = new Intent(MainActivity.this, AjudaActivity.class);
+            Intent i = new Intent(MainActivity.this, HelpActivity.class);
             startActivityForResult(i, 1);
         }
     }

@@ -8,4 +8,13 @@
     <string name="ayuda_text2">El objetivo de Connect 4 es alinear cuatro fichas sobre un tablero.</string>
     <string name="ayuda_text3">Cada jugador dispone de 21 fichas de un color.​ Por turnos, los jugadores deben introducir una ficha en la columna que prefieran (siempre que no esté completa) y ésta caerá a la posición más baja.</string>
     <string name="ayuda_text4">Gana la partida el primero que consiga alinear cuatro fichas consecutivas de un mismo color en horizontal, vertical o diagonal.​ Si todas las columnas están llenas pero nadie ha hecho una fila válida, hay empate.</string>
+    <string name="options_text1">Opciones del juego</string>
+    <string name="options_text2">Apodo</string>
+    <string name="options_input1">Introduce tu apodo</string>
+    <string name="options_text3">Tamaño del tablero</string>
+    <string name="options_group1">7</string>
+    <string name="options_group2">6</string>
+    <string name="options_group3">5</string>
+    <string name="options_switch1">Temporizador</string>
+    <string name="options_button1">Empezar la partida!</string>
 </resources>
