@@ -17,4 +17,5 @@
     <string name="options_group3">5x5</string>
     <string name="options_switch1">Temporizador</string>
     <string name="options_button1">Empezar la partida!</string>
+    <string name="game_text1">Temporizador</string>
 </resources>
