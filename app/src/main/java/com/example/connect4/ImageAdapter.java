@@ -9,14 +9,25 @@ import android.widget.ImageView;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
-
+    private int num_columns;
+    private int column_width;
     // Constructor
-    public ImageAdapter(Context c) {
+    public ImageAdapter(Context c, int num_columns, int column_width) {
         mContext = c;
+        this.num_columns = num_columns;
+        this.column_width = column_width;
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        if(num_columns == 5) {
+            return board5.length;
+        }
+        else if(num_columns == 6) {
+            return board6.length;
+        }
+        else {
+            return board7.length;
+        }
     }
 
     public Object getItem(int position) {
@@ -31,18 +42,46 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(210, 210));
+            imageView.setLayoutParams(new GridView.LayoutParams(column_width, column_width));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
         else {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageResource(mThumbIds[position]);
+        if(num_columns == 5) {
+            imageView.setImageResource(board5[position]);
+        }
+        else if(num_columns == 6) {
+            imageView.setImageResource(board6[position]);
+        }
+        else {
+            imageView.setImageResource(board7[position]);
+        }
         return imageView;
     }
 
     // Keep all Images in array
-    public Integer[] mThumbIds = {
+    public Integer[] board7 = {
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+    };
+
+    public Integer[] board6 = {
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
+    };
+
+    public Integer[] board5 = {
             R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
             R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
             R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,

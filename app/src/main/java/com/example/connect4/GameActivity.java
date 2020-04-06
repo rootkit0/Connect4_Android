@@ -15,10 +15,25 @@ public class GameActivity extends AppCompatActivity {
         //Get content from intent
         Bundle data = this.getIntent().getExtras();
         String nickname = data.getString("nickname");
-        int board_size = data.getInt("board_size");
+        int num_columns = data.getInt("board_size");
         Boolean timer = data.getBoolean("timer_status");
 
-        GridView board7 = (GridView) findViewById(R.id.gridView);
-        board7.setAdapter(new ImageAdapter(this));
+        GridView board = (GridView) findViewById(R.id.gridView);
+        //Set num columns and column width
+        int column_width = 0;
+        board.setNumColumns(num_columns);
+        if(num_columns == 5) {
+            column_width = 210;
+            board.setColumnWidth(210);
+        }
+        else if(num_columns == 6) {
+            column_width = 175;
+            board.setColumnWidth(175);
+        }
+        else {
+            column_width = 150;
+            board.setColumnWidth(150);
+        }
+        board.setAdapter(new ImageAdapter(this, num_columns, column_width));
     }
 }
