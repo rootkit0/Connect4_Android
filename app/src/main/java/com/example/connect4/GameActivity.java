@@ -1,6 +1,7 @@
 package com.example.connect4;
 
 import android.os.Bundle;
+import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,5 +17,6 @@ public class GameActivity extends AppCompatActivity {
         String nickname = data.getString("nickname");
         int board_size = data.getInt("board_size");
         Boolean timer = data.getBoolean("timer_status");
+
     }
 }
