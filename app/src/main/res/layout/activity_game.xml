@@ -7,38 +7,18 @@
     android:layout_height="match_parent">
 
     <GridView
-        android:id="@+id/gridView5"
-        android:layout_width="298dp"
-        android:layout_height="377dp"
+        android:id="@+id/gridView"
+        android:layout_width="1050px"
+        android:layout_height="1050px"
+        android:layout_gravity="center"
+        android:columnWidth="210px"
+        android:numColumns="5"
+        android:stretchMode="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774"
-        android:numColumns="5" />
+        app:layout_constraintVertical_bias="0.833" />
 
-    <GridView
-        android:id="@+id/gridView6"
-        android:layout_width="298dp"
-        android:layout_height="377dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774"
-        android:numColumns="6" />
-
-    <GridView
-        android:id="@+id/gridView7"
-        android:layout_width="298dp"
-        android:layout_height="377dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774"
-        android:numColumns="7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,5 +18,7 @@ public class GameActivity extends AppCompatActivity {
         int board_size = data.getInt("board_size");
         Boolean timer = data.getBoolean("timer_status");
 
+        GridView board7 = (GridView) findViewById(R.id.gridView);
+        board7.setAdapter(new ImageAdapter(this));
     }
 }
