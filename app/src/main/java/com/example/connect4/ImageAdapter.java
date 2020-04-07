@@ -60,6 +60,18 @@ public class ImageAdapter extends BaseAdapter {
         return imageView;
     }
 
+    public void fillPosition(int position) {
+        if(num_columns == 5) {
+            board5[position] = R.drawable.player1;
+        }
+        else if(num_columns == 6) {
+            board6[position] = R.drawable.player1;
+        }
+        else {
+            board7[position] = R.drawable.player1;
+        }
+    }
+
     // Keep all Images in array
     public Integer[] board7 = {
             R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
