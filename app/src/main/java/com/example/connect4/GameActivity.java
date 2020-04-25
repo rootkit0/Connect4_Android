@@ -3,17 +3,17 @@ package com.example.connect4;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
 
     //Variable for the timer
-    public int counter = 120;
+    public int counter = 25;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +42,18 @@ public class GameActivity extends AppCompatActivity {
             column_width = 150;
             board.setColumnWidth(150);
         }
+        //Turn image
+        ImageView turn = (ImageView)findViewById(R.id.imageView3);
+        //Initialize the game logic instance
+        final Game game_instance = new Game(num_columns, num_columns, 4);
         //Call the adapter to set the content of the grid view
-        ImageAdapter boardAdapter = new ImageAdapter(this, num_columns, column_width);
+        final ImageAdapter boardAdapter = new ImageAdapter(this, num_columns, column_width, game_instance, turn);
         board.setAdapter(boardAdapter);
-        //Set listener event to detect when a cell is clicked
-        board.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                TextView textView9 = (TextView)findViewById(R.id.textView9);
-                textView9.setText(String.valueOf(position));
-            }
-        });
         //Display timer
         final TextView timer = findViewById(R.id.textView8);
         if(timer_status) {
             timer.setTextColor(Color.RED);
-            new CountDownTimer(120000, 1000) {
+            new CountDownTimer(25000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     timer.setText(String.valueOf(counter));
@@ -65,7 +62,9 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     //Stop the game
+                    game_instance.setTimeFinished();
                     timer.setText("Se ha acabado el tiempo!");
+                    Toast.makeText(GameActivity.this, "Se ha acabado el tiempo!", Toast.LENGTH_LONG).show();
                 }
             }.start();
         }

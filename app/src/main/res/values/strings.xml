@@ -18,4 +18,5 @@
     <string name="options_switch1">Temporizador</string>
     <string name="options_button1">Empezar la partida!</string>
     <string name="game_text1">Temporizador</string>
+    <string name="game_text2">Turno</string>
 </resources>

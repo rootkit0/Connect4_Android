@@ -5,5 +5,6 @@ public enum Status {
     PLAYER2_PLAYS,
     PLAYER1_WINS,
     PLAYER2_WINS,
-    DRAW
+    DRAW,
+    TIME_FINISHED
 }

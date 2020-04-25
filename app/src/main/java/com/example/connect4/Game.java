@@ -27,9 +27,9 @@ public class Game {
 
     public Move drop(int column) {
         if(this.status == Status.PLAYER1_PLAYS) {
-            //Poner posicion seleccionada por el usuario
-            Position pos1 = board.occupyCell(column, Player.player1());
-            if(board.maxConnected(pos1) == this.toWin) {
+            int row = board.firstEmptyRow(column);
+            this.board.cells[row][column] = 1;
+            if(board.maxConnected(new Position(row, column)) == this.toWin) {
                 this.status = Status.PLAYER1_WINS;
             }
             else if(!board.hasValidMoves()) {
@@ -38,12 +38,13 @@ public class Game {
             else {
                 toggleTurn();
             }
-            return new Move(Player.player1(), pos1);
+            return new Move(1,  new Position(row, column));
         }
         else {
-            Position pos1 = playOpponent();
-            if(board.maxConnected(pos1) == this.toWin) {
-                this.status = Status.PLAYER2_WINS;
+            int row = board.firstEmptyRow(column);
+            this.board.cells[row][column] = 2;
+            if(board.maxConnected(new Position(row, column)) == this.toWin) {
+                this.status = Status.PLAYER2_PLAYS;
             }
             else if(!board.hasValidMoves()) {
                 this.status = Status.DRAW;
@@ -51,11 +52,11 @@ public class Game {
             else {
                 toggleTurn();
             }
-            return new Move(Player.player2(), pos1);
+            return new Move(2,  new Position(row, column));
         }
     }
 
-    public Position playOpponent() {
+    public int playOpponent() {
         Random rand = new Random();
         int random_colum = rand.nextInt(columns);
         boolean found_position = false;
@@ -67,7 +68,7 @@ public class Game {
                 random_colum = rand.nextInt(columns);
             }
         }
-        return board.occupyCell(random_colum, Player.player2());
+        return random_colum;
     }
 
     public void toggleTurn() {
@@ -79,14 +80,14 @@ public class Game {
         }
     }
 
-    public void manageTime() {
-        //Temporizador
-    }
-
     public boolean checkForFinish() {
-        if(this.status == Status.PLAYER1_WINS || this.status == Status.PLAYER2_WINS || this.status == Status.DRAW) {
+        if(this.status == Status.PLAYER1_WINS || this.status == Status.PLAYER2_WINS || this.status == Status.DRAW || this.status == Status.TIME_FINISHED) {
             return true;
         }
         return false;
+    }
+
+    public void setTimeFinished() {
+        this.status = Status.TIME_FINISHED;
     }
 }

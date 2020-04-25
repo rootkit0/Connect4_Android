@@ -11,23 +11,19 @@ public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private int num_columns;
     private int column_width;
+    private Game game;
+    private ImageView[] arrayViews;
     // Constructor
-    public ImageAdapter(Context c, int num_columns, int column_width) {
-        mContext = c;
+    public ImageAdapter(Context c, int num_columns, int column_width, Game game, ImageView turn) {
+        this.mContext = c;
         this.num_columns = num_columns;
         this.column_width = column_width;
+        this.game = game;
+        this.arrayViews = new ImageView[num_columns * num_columns];
     }
 
     public int getCount() {
-        if(num_columns == 5) {
-            return board5.length;
-        }
-        else if(num_columns == 6) {
-            return board6.length;
-        }
-        else {
-            return board7.length;
-        }
+        return  num_columns * num_columns;
     }
 
     public Object getItem(int position) {
@@ -48,58 +44,42 @@ public class ImageAdapter extends BaseAdapter {
         else {
             imageView = (ImageView) convertView;
         }
-        if(num_columns == 5) {
-            imageView.setImageResource(board5[position]);
-        }
-        else if(num_columns == 6) {
-            imageView.setImageResource(board6[position]);
-        }
-        else {
-            imageView.setImageResource(board7[position]);
-        }
+        imageView.setBackgroundResource(R.drawable.cell);
+        imageView.setOnClickListener(new CellClickListener(position));
+        arrayViews[position] = imageView;
         return imageView;
     }
 
-    public void fillPosition(int position) {
-        if(num_columns == 5) {
-            board5[position] = R.drawable.player1;
+    private class CellClickListener implements View.OnClickListener {
+        int position;
+
+        CellClickListener(int position) {
+            this.position = position;
         }
-        else if(num_columns == 6) {
-            board6[position] = R.drawable.player1;
+
+        public void onClick(View v) {
+            int column = (position%num_columns);
+            if(!game.checkForFinish()) {
+                if(game.canPlayColumn(column)) {
+                    Move mv = game.drop(column);
+                    int played_row = mv.getPosition().getRow();
+                    int played_column = mv.getPosition().getColumn();
+                    int position = (7*played_row + played_column);
+                    arrayViews[position].setImageResource(R.drawable.player1);
+                    playOponent();
+                }
+            }
         }
-        else {
-            board7[position] = R.drawable.player1;
+
+        public void playOponent() {
+            if(!game.checkForFinish()) {
+                int computer_column = game.playOpponent();
+                Move computer_mv = game.drop(computer_column);
+                int computer_played_row = computer_mv.getPosition().getRow();
+                int computer_played_column = computer_mv.getPosition().getColumn();
+                int computer_position = (7 * computer_played_row + computer_played_column);
+                arrayViews[computer_position].setImageResource(R.drawable.player2);
+            }
         }
     }
-
-    // Keep all Images in array
-    public Integer[] board7 = {
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-    };
-
-    public Integer[] board6 = {
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-    };
-
-    public Integer[] board5 = {
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-            R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell, R.drawable.cell,
-    };
 }
