@@ -1,4 +1,6 @@
 package com.example.connect4;
+import android.widget.ImageView;
+
 import java.util.Random;
 
 public class Game {
@@ -6,14 +8,12 @@ public class Game {
     private final Board board;
     private final int toWin;
     private Status status;
-    private boolean hasWinner;
     private int columns;
 
     public Game(int rows, int columns, int toWin) {
         this.board = new Board(rows, columns);
         this.toWin = toWin;
         this.status = Status.PLAYER1_PLAYS;
-        this.hasWinner = false;
         this.columns = columns;
     }
 
@@ -25,7 +25,7 @@ public class Game {
         return board.canPlayColumn(column);
     }
 
-    public Move drop(int column) {
+    public Move drop(int column, ImageView turn) {
         if(this.status == Status.PLAYER1_PLAYS) {
             int row = board.firstEmptyRow(column);
             this.board.cells[row][column] = 1;
@@ -37,6 +37,7 @@ public class Game {
             }
             else {
                 toggleTurn();
+                turn.setImageResource(R.drawable.turn_yellow);
             }
             return new Move(1,  new Position(row, column));
         }
@@ -44,13 +45,14 @@ public class Game {
             int row = board.firstEmptyRow(column);
             this.board.cells[row][column] = 2;
             if(board.maxConnected(new Position(row, column)) == this.toWin) {
-                this.status = Status.PLAYER2_PLAYS;
+                this.status = Status.PLAYER2_WINS;
             }
             else if(!board.hasValidMoves()) {
                 this.status = Status.DRAW;
             }
             else {
                 toggleTurn();
+                turn.setImageResource(R.drawable.turn_red);
             }
             return new Move(2,  new Position(row, column));
         }

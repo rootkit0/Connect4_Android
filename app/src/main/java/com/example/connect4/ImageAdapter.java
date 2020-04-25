@@ -6,12 +6,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private int num_columns;
     private int column_width;
     private Game game;
+    private ImageView turn;
     private ImageView[] arrayViews;
     // Constructor
     public ImageAdapter(Context c, int num_columns, int column_width, Game game, ImageView turn) {
@@ -19,6 +21,7 @@ public class ImageAdapter extends BaseAdapter {
         this.num_columns = num_columns;
         this.column_width = column_width;
         this.game = game;
+        this.turn = turn;
         this.arrayViews = new ImageView[num_columns * num_columns];
     }
 
@@ -61,7 +64,7 @@ public class ImageAdapter extends BaseAdapter {
             int column = (position%num_columns);
             if(!game.checkForFinish()) {
                 if(game.canPlayColumn(column)) {
-                    Move mv = game.drop(column);
+                    Move mv = game.drop(column, turn);
                     int played_row = mv.getPosition().getRow();
                     int played_column = mv.getPosition().getColumn();
                     int position = (7*played_row + played_column);
@@ -69,12 +72,23 @@ public class ImageAdapter extends BaseAdapter {
                     playOponent();
                 }
             }
+            else {
+                if(game.getStatus() == Status.PLAYER1_WINS) {
+                    Toast.makeText(mContext, "Has ganado!", Toast.LENGTH_SHORT).show();
+                }
+                else if(game.getStatus() == Status.PLAYER2_WINS) {
+                    Toast.makeText(mContext, "Has perdido!", Toast.LENGTH_SHORT).show();
+                }
+                else if(game.getStatus() == Status.DRAW) {
+                    Toast.makeText(mContext, "Heu empatado!", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
 
         public void playOponent() {
             if(!game.checkForFinish()) {
                 int computer_column = game.playOpponent();
-                Move computer_mv = game.drop(computer_column);
+                Move computer_mv = game.drop(computer_column, turn);
                 int computer_played_row = computer_mv.getPosition().getRow();
                 int computer_played_column = computer_mv.getPosition().getColumn();
                 int computer_position = (7 * computer_played_row + computer_played_column);
