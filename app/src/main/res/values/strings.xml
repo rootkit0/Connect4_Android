@@ -19,4 +19,14 @@
     <string name="options_button1">Empezar la partida!</string>
     <string name="game_text1">Temporizador</string>
     <string name="game_text2">Turno</string>
+    <string name="result_text1">Resultado de la partida</string>
+    <string name="result_text2">Dia y hora</string>
+    <string name="result_text3">Valores del Log</string>
+    <string name="result_text4">Email del destinatario</string>
+    <string name="result_btn1"> Enviar e-mail</string>
+    <string name="result_btn2"> Nueva partida</string>
+    <string name="result_btn3"> Salir</string>
+    <string name="result_text5">Introducir fecha i hora</string>
+    <string name="result_text6">Introducir alias...</string>
+    <string name="result_text7">Introducir e-mail</string>
 </resources>
