@@ -1,5 +1,6 @@
 package com.example.connect4;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -11,7 +12,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
-
     //Variable for the timer
     public int counter = 25;
 
@@ -22,9 +22,9 @@ public class GameActivity extends AppCompatActivity {
 
         //Get content from intent
         Bundle data = this.getIntent().getExtras();
-        String nickname = data.getString("nickname");
-        int num_columns = data.getInt("board_size");
-        Boolean timer_status = data.getBoolean("timer_status");
+        final String nickname = data.getString("nickname");
+        final int num_columns = data.getInt("board_size");
+        final Boolean timer_status = data.getBoolean("timer_status");
 
         GridView board = (GridView) findViewById(R.id.gridView);
         //Set num columns and column width
@@ -42,18 +42,16 @@ public class GameActivity extends AppCompatActivity {
             column_width = 150;
             board.setColumnWidth(150);
         }
-        //Turn image
-        ImageView turn = (ImageView)findViewById(R.id.imageView3);
         //Initialize the game logic instance
         final Game game_instance = new Game(num_columns, num_columns, 4);
-        //Call the adapter to set the content of the grid view
-        final ImageAdapter boardAdapter = new ImageAdapter(this, num_columns, column_width, game_instance, turn);
-        board.setAdapter(boardAdapter);
+        //Turn image
+        ImageView turn = (ImageView)findViewById(R.id.imageView3);
         //Display timer
         final TextView timer = findViewById(R.id.textView8);
+        CountDownTimer count_timer = null;
         if(timer_status) {
             timer.setTextColor(Color.RED);
-            new CountDownTimer(25000, 1000) {
+            count_timer = new CountDownTimer(25000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     timer.setText(String.valueOf(counter));
@@ -63,8 +61,12 @@ public class GameActivity extends AppCompatActivity {
                 public void onFinish() {
                     //Stop the game
                     game_instance.setTimeFinished();
-                    timer.setText("Se ha acabado el tiempo!");
-                    Toast.makeText(GameActivity.this, "Se ha acabado el tiempo!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GameActivity.this, "Se ha acabado el tiempo!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(GameActivity.this, ResultsActivity.class);
+                    i.putExtra("nickname", nickname);
+                    i.putExtra("board_size", num_columns);
+                    i.putExtra("time_status", true);
+                    startActivity(i);
                 }
             }.start();
         }
@@ -72,5 +74,8 @@ public class GameActivity extends AppCompatActivity {
             timer.setText(String.valueOf(counter));
             timer.setTextColor(Color.BLUE);
         }
+        //Call the adapter to set the content of the grid view
+        final ImageAdapter boardAdapter = new ImageAdapter(this, num_columns, column_width, game_instance, turn, timer_status, count_timer, nickname);
+        board.setAdapter(boardAdapter);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.connect4;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -14,14 +16,20 @@ public class ImageAdapter extends BaseAdapter {
     private int column_width;
     private Game game;
     private ImageView turn;
+    private Boolean timer_status;
+    private CountDownTimer count_timer;
+    private String nickname;
     private ImageView[] arrayViews;
     // Constructor
-    public ImageAdapter(Context c, int num_columns, int column_width, Game game, ImageView turn) {
+    public ImageAdapter(Context c, int num_columns, int column_width, Game game, ImageView turn, Boolean timer_status, CountDownTimer count_timer, String nickname) {
         this.mContext = c;
         this.num_columns = num_columns;
         this.column_width = column_width;
         this.game = game;
         this.turn = turn;
+        this.timer_status = timer_status;
+        this.count_timer = count_timer;
+        this.nickname = nickname;
         this.arrayViews = new ImageView[num_columns * num_columns];
     }
 
@@ -69,11 +77,6 @@ public class ImageAdapter extends BaseAdapter {
                     int played_column = mv.getPosition().getColumn();
                     int position = (num_columns * played_row + played_column);
                     arrayViews[position].setImageResource(R.drawable.player1);
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     playOponent();
                 }
             }
@@ -87,6 +90,7 @@ public class ImageAdapter extends BaseAdapter {
                 else if(game.getStatus() == Status.DRAW) {
                     Toast.makeText(mContext, "Habeis empatado!", Toast.LENGTH_SHORT).show();
                 }
+                showLog();
             }
         }
 
@@ -99,6 +103,29 @@ public class ImageAdapter extends BaseAdapter {
                 int computer_position = (num_columns * computer_played_row + computer_played_column);
                 arrayViews[computer_position].setImageResource(R.drawable.player2);
             }
+            else {
+                if(game.getStatus() == Status.PLAYER1_WINS) {
+                    Toast.makeText(mContext, "Has ganado!", Toast.LENGTH_SHORT).show();
+                }
+                else if(game.getStatus() == Status.PLAYER2_WINS) {
+                    Toast.makeText(mContext, "Has perdido!", Toast.LENGTH_SHORT).show();
+                }
+                else if(game.getStatus() == Status.DRAW) {
+                    Toast.makeText(mContext, "Habeis empatado!", Toast.LENGTH_SHORT).show();
+                }
+                showLog();
+            }
+        }
+
+        public void showLog() {
+            if(timer_status) {
+                count_timer.cancel();
+            }
+            Intent i = new Intent(mContext, ResultsActivity.class);
+            i.putExtra("nickname", nickname);
+            i.putExtra("board_size", num_columns);
+            i.putExtra("time_status", timer_status);
+            mContext.startActivity(i);
         }
     }
 }

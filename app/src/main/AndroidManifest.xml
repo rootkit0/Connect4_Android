@@ -21,5 +21,7 @@
         </activity>
         <activity android:name=".GameActivity">
         </activity>
+        <activity android:name=".ResultsActivity">
+        </activity>
     </application>
 </manifest>
