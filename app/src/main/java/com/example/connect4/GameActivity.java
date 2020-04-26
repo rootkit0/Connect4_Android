@@ -28,7 +28,7 @@ public class GameActivity extends AppCompatActivity {
 
         GridView board = (GridView) findViewById(R.id.gridView);
         //Set num columns and column width
-        int column_width = 0;
+        int column_width;
         board.setNumColumns(num_columns);
         if(num_columns == 5) {
             column_width = 210;

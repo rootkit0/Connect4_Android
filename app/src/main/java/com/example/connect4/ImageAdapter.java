@@ -67,8 +67,13 @@ public class ImageAdapter extends BaseAdapter {
                     Move mv = game.drop(column, turn);
                     int played_row = mv.getPosition().getRow();
                     int played_column = mv.getPosition().getColumn();
-                    int position = (7*played_row + played_column);
+                    int position = (num_columns * played_row + played_column);
                     arrayViews[position].setImageResource(R.drawable.player1);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     playOponent();
                 }
             }
@@ -80,7 +85,7 @@ public class ImageAdapter extends BaseAdapter {
                     Toast.makeText(mContext, "Has perdido!", Toast.LENGTH_SHORT).show();
                 }
                 else if(game.getStatus() == Status.DRAW) {
-                    Toast.makeText(mContext, "Heu empatado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Habeis empatado!", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -91,7 +96,7 @@ public class ImageAdapter extends BaseAdapter {
                 Move computer_mv = game.drop(computer_column, turn);
                 int computer_played_row = computer_mv.getPosition().getRow();
                 int computer_played_column = computer_mv.getPosition().getColumn();
-                int computer_position = (7 * computer_played_row + computer_played_column);
+                int computer_position = (num_columns * computer_played_row + computer_played_column);
                 arrayViews[computer_position].setImageResource(R.drawable.player2);
             }
         }
