@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +26,12 @@ public class ResultsActivity extends AppCompatActivity {
         Boolean time_status = data.getBoolean("timer_status");
 
         EditText dateTime = (EditText)findViewById(R.id.editText);
-        final String date_content = Calendar.getInstance().getTime().toString();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
+        final String date_content = df.format(Calendar.getInstance().getTime());
         dateTime.setText(date_content);
 
         EditText log = (EditText)findViewById(R.id.editText2);
-        final String log_content = "Alias: " + nickname + ", tamaño tablero: " + board_size;
+        final String log_content = "Alias: " + nickname + "\n" + "Tamaño tablero: " + board_size + "\n" + "Tiempo total: ";
         log.setText(log_content);
 
         EditText email = (EditText)findViewById(R.id.editText3);
@@ -41,7 +44,8 @@ public class ResultsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent email_intent = new Intent(Intent.ACTION_SENDTO);
                 email_intent.setData(Uri.parse("mailto:" + email_content));
-                email_intent.putExtra(Intent.EXTRA_SUBJECT, log_content + " - " + date_content);
+                email_intent.putExtra(Intent.EXTRA_SUBJECT, "Log - " + date_content);
+                email_intent.putExtra(Intent.EXTRA_TEXT, log_content);
                 startActivity(email_intent);
             }
         });

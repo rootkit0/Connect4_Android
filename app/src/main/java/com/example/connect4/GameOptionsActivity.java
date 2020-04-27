@@ -12,15 +12,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameOptionsActivity extends AppCompatActivity {
 
+    private EditText nickname;
+    private RadioGroup sizes_radioGroup;
+    private Switch timer_status;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameoptions);
 
         //Get nickname, board size and timer status from layout
-        EditText nickname = (EditText)findViewById(R.id.editText);
-        RadioGroup sizes_radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
-        Switch timer_status = (Switch)findViewById(R.id.switch1);
+        nickname = (EditText)findViewById(R.id.editText);
+        sizes_radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
+        timer_status = (Switch)findViewById(R.id.switch1);
 
         Button btn_startGame = (Button)findViewById(R.id.button4);
         btn_startGame.setOnClickListener(new startGame(nickname, sizes_radioGroup, timer_status));

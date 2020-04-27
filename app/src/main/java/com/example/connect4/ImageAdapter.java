@@ -70,56 +70,43 @@ public class ImageAdapter extends BaseAdapter {
 
         public void onClick(View v) {
             int column = (position%num_columns);
-            if(!game.checkForFinish()) {
-                if(game.canPlayColumn(column)) {
-                    Move mv = game.drop(column, turn);
-                    int played_row = mv.getPosition().getRow();
-                    int played_column = mv.getPosition().getColumn();
-                    int position = (num_columns * played_row + played_column);
-                    arrayViews[position].setImageResource(R.drawable.player1);
-                    playOponent();
+            if(game.canPlayColumn(column)) {
+                Move mv = game.drop(column, turn);
+                int played_row = mv.getPosition().getRow();
+                int played_column = mv.getPosition().getColumn();
+                int position = (num_columns * played_row + played_column);
+                arrayViews[position].setImageResource(R.drawable.player1);
+                if(game.checkForFinish()) {
+                    gameFinished();
                 }
-            }
-            else {
-                if(game.getStatus() == Status.PLAYER1_WINS) {
-                    Toast.makeText(mContext, "Has ganado!", Toast.LENGTH_SHORT).show();
-                }
-                else if(game.getStatus() == Status.PLAYER2_WINS) {
-                    Toast.makeText(mContext, "Has perdido!", Toast.LENGTH_SHORT).show();
-                }
-                else if(game.getStatus() == Status.DRAW) {
-                    Toast.makeText(mContext, "Habeis empatado!", Toast.LENGTH_SHORT).show();
-                }
-                showLog();
+                playOponent();
             }
         }
 
         public void playOponent() {
-            if(!game.checkForFinish()) {
-                int computer_column = game.playOpponent();
-                Move computer_mv = game.drop(computer_column, turn);
-                int computer_played_row = computer_mv.getPosition().getRow();
-                int computer_played_column = computer_mv.getPosition().getColumn();
-                int computer_position = (num_columns * computer_played_row + computer_played_column);
-                arrayViews[computer_position].setImageResource(R.drawable.player2);
-            }
-            else {
-                if(game.getStatus() == Status.PLAYER1_WINS) {
-                    Toast.makeText(mContext, "Has ganado!", Toast.LENGTH_SHORT).show();
-                }
-                else if(game.getStatus() == Status.PLAYER2_WINS) {
-                    Toast.makeText(mContext, "Has perdido!", Toast.LENGTH_SHORT).show();
-                }
-                else if(game.getStatus() == Status.DRAW) {
-                    Toast.makeText(mContext, "Habeis empatado!", Toast.LENGTH_SHORT).show();
-                }
-                showLog();
+            int computer_column = game.playOpponent();
+            Move computer_mv = game.drop(computer_column, turn);
+            int computer_played_row = computer_mv.getPosition().getRow();
+            int computer_played_column = computer_mv.getPosition().getColumn();
+            int computer_position = (num_columns * computer_played_row + computer_played_column);
+            arrayViews[computer_position].setImageResource(R.drawable.player2);
+            if(game.checkForFinish()) {
+                gameFinished();
             }
         }
 
-        public void showLog() {
+        public void gameFinished() {
             if(timer_status) {
                 count_timer.cancel();
+            }
+            if(game.getStatus() == Status.PLAYER1_WINS) {
+                Toast.makeText(mContext, "Has ganado!", Toast.LENGTH_SHORT).show();
+            }
+            else if(game.getStatus() == Status.PLAYER2_WINS) {
+                Toast.makeText(mContext, "Has perdido!", Toast.LENGTH_SHORT).show();
+            }
+            else if(game.getStatus() == Status.DRAW) {
+                Toast.makeText(mContext, "Habeis empatado!", Toast.LENGTH_SHORT).show();
             }
             Intent i = new Intent(mContext, ResultsActivity.class);
             i.putExtra("nickname", nickname);
