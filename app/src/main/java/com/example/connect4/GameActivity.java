@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class GameActivity extends AppCompatActivity {
     //Variable for the timer
     public int counter = 25;
-    private ImageAdapter boardAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +66,7 @@ public class GameActivity extends AppCompatActivity {
                     i.putExtra("nickname", nickname);
                     i.putExtra("board_size", num_columns);
                     i.putExtra("time_status", true);
+                    i.putExtra("time_value", timer.getText());
                     startActivity(i);
                 }
             }.start();
@@ -76,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
             timer.setTextColor(Color.BLUE);
         }
         //Call the adapter to set the content and actions of the grid view
-        boardAdapter = new ImageAdapter(this, num_columns, column_width, game_instance, turn, timer_status, count_timer, nickname);
+        ImageAdapter boardAdapter = new ImageAdapter(this, num_columns, column_width, game_instance, turn, timer, timer_status, count_timer, nickname);
         board.setAdapter(boardAdapter);
     }
 }

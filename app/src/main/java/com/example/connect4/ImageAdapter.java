@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ImageAdapter extends BaseAdapter {
@@ -16,17 +17,19 @@ public class ImageAdapter extends BaseAdapter {
     private int column_width;
     private Game game;
     private ImageView turn;
+    private TextView timer;
     private Boolean timer_status;
     private CountDownTimer count_timer;
     private String nickname;
     private ImageView[] arrayViews;
     // Constructor
-    public ImageAdapter(Context c, int num_columns, int column_width, Game game, ImageView turn, Boolean timer_status, CountDownTimer count_timer, String nickname) {
+    public ImageAdapter(Context c, int num_columns, int column_width, Game game, ImageView turn, TextView timer, Boolean timer_status, CountDownTimer count_timer, String nickname) {
         this.mContext = c;
         this.num_columns = num_columns;
         this.column_width = column_width;
         this.game = game;
         this.turn = turn;
+        this.timer = timer;
         this.timer_status = timer_status;
         this.count_timer = count_timer;
         this.nickname = nickname;
@@ -112,6 +115,7 @@ public class ImageAdapter extends BaseAdapter {
             i.putExtra("nickname", nickname);
             i.putExtra("board_size", num_columns);
             i.putExtra("time_status", timer_status);
+            i.putExtra("time_value", timer.getText());
             mContext.startActivity(i);
         }
     }

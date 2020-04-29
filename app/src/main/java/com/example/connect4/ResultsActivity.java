@@ -24,6 +24,7 @@ public class ResultsActivity extends AppCompatActivity {
         String nickname = data.getString("nickname");
         int board_size = data.getInt("board_size");
         Boolean time_status = data.getBoolean("timer_status");
+        String time = data.getString("time_value");
 
         EditText dateTime = (EditText)findViewById(R.id.editText);
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
@@ -31,7 +32,7 @@ public class ResultsActivity extends AppCompatActivity {
         dateTime.setText(date_content);
 
         EditText log = (EditText)findViewById(R.id.editText2);
-        final String log_content = "Alias: " + nickname + "\n" + "Tamaño tablero: " + board_size + "\n" + "Tiempo total: ";
+        final String log_content = "Alias: " + nickname + "\n" + "Tamaño tablero: " + board_size + "\n" + "Tiempo total: " + time;
         log.setText(log_content);
 
         EditText email = (EditText)findViewById(R.id.editText3);
