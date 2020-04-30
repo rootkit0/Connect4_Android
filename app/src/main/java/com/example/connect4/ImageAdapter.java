@@ -99,23 +99,28 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         public void gameFinished() {
+            String result = "";
             if(timer_status) {
                 count_timer.cancel();
             }
             if(game.getStatus() == Status.PLAYER1_WINS) {
                 Toast.makeText(mContext, "Has ganado!", Toast.LENGTH_SHORT).show();
+                result = "Has ganado!";
             }
             else if(game.getStatus() == Status.PLAYER2_WINS) {
                 Toast.makeText(mContext, "Has perdido!", Toast.LENGTH_SHORT).show();
+                result = "Has perdido!";
             }
             else if(game.getStatus() == Status.DRAW) {
                 Toast.makeText(mContext, "Habeis empatado!", Toast.LENGTH_SHORT).show();
+                result = "Habeis empatado!";
             }
             Intent i = new Intent(mContext, ResultsActivity.class);
             i.putExtra("nickname", nickname);
             i.putExtra("board_size", num_columns);
             i.putExtra("time_status", timer_status);
             i.putExtra("time_value", timer.getText());
+            i.putExtra("result", result);
             mContext.startActivity(i);
         }
     }

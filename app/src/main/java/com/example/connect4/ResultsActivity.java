@@ -14,6 +14,11 @@ import java.util.Calendar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ResultsActivity extends AppCompatActivity {
+
+    String email_content;
+    String log_content;
+    String date_content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,20 +28,33 @@ public class ResultsActivity extends AppCompatActivity {
         Bundle data = this.getIntent().getExtras();
         String nickname = data.getString("nickname");
         int board_size = data.getInt("board_size");
-        Boolean time_status = data.getBoolean("timer_status");
+        Boolean time_status = data.getBoolean("time_status");
         String time = data.getString("time_value");
+        String result = data.getString("result");
 
         EditText dateTime = (EditText)findViewById(R.id.editText);
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
-        final String date_content = df.format(Calendar.getInstance().getTime());
+        this.date_content = df.format(Calendar.getInstance().getTime());
         dateTime.setText(date_content);
 
         EditText log = (EditText)findViewById(R.id.editText2);
-        final String log_content = "Alias: " + nickname + "\n" + "Tamaño tablero: " + board_size + "\n" + "Tiempo total: " + time;
+        this.log_content = "Alias: " + nickname + "\n" + "Tamaño tablero: " + board_size;
+        if(time_status) {
+            this.log_content += " Tiempo total: " + (25 - Integer.parseInt(time)) + "\n";
+        }
+        this.log_content += "\n" + result + "\n";
+        if(time_status) {
+            if(Integer.parseInt(time) > 0) {
+                this.log_content += "Han sobrado " + time + " segundos!";
+            }
+            else {
+                this.log_content += "Has agotado el tiempo!";
+            }
+        }
         log.setText(log_content);
 
         EditText email = (EditText)findViewById(R.id.editText3);
-        final String email_content = email.getText().toString();
+        this.email_content = email.getText().toString();
 
         //Buttons
         Button sendEmail = (Button)findViewById(R.id.button4);
