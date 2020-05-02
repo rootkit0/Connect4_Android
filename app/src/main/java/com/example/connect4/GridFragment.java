@@ -4,30 +4,40 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 
-public class GameActivity extends FragmentActivity {
+public class GridFragment extends Fragment {
+
+    //Variable for the timer
+    public int counter = 25;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-
-        //Get content from intent
-        Bundle data = this.getIntent().getExtras();
-
-        GridFragment gridFrag = (GridFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentGame);
-        gridFrag.setArguments(data);
     }
 
-        /*
-        GridView board = (GridView) findViewById(R.id.gridView);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.grid_fragment, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        final String nickname = getArguments().getString("nickname");
+        final int num_columns = getArguments().getInt("board_size");
+        final Boolean timer_status = getArguments().getBoolean("timer_status");
+
+        GridView board = getView().findViewById(R.id.gridView);
         //Set num columns and column width
         int column_width;
         board.setNumColumns(num_columns);
@@ -46,9 +56,9 @@ public class GameActivity extends FragmentActivity {
         //Initialize the game logic instance
         final Game game_instance = new Game(num_columns, num_columns, 4);
         //Turn image
-        ImageView turn = (ImageView)findViewById(R.id.imageView3);
+        ImageView turn = getView().findViewById(R.id.imageView3);
         //Display timer
-        final TextView timer = findViewById(R.id.textView8);
+        final TextView timer = getView().findViewById(R.id.textView8);
         CountDownTimer count_timer = null;
         if(timer_status) {
             timer.setTextColor(Color.RED);
@@ -62,8 +72,8 @@ public class GameActivity extends FragmentActivity {
                 public void onFinish() {
                     //Stop the game
                     game_instance.setTimeFinished();
-                    Toast.makeText(GameActivity.this, "Se ha acabado el tiempo!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(GameActivity.this, ResultsActivity.class);
+                    Toast.makeText(getActivity(), "Se ha acabado el tiempo!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getActivity(), ResultsActivity.class);
                     i.putExtra("nickname", nickname);
                     i.putExtra("board_size", num_columns);
                     i.putExtra("time_status", true);
@@ -77,8 +87,7 @@ public class GameActivity extends FragmentActivity {
             timer.setTextColor(Color.BLUE);
         }
         //Call the adapter to set the content and actions of the grid view
-        ImageAdapter boardAdapter = new ImageAdapter(this, num_columns, column_width, game_instance, turn, timer, timer_status, count_timer, nickname);
+        ImageAdapter boardAdapter = new ImageAdapter(getActivity(), num_columns, column_width, game_instance, turn, timer, timer_status, count_timer, nickname);
         board.setAdapter(boardAdapter);
     }
-    */
 }

@@ -1,6 +1,6 @@
 package com.example.connect4;
-import android.widget.ImageView;
 
+import android.widget.ImageView;
 import java.util.Random;
 
 public class Game {
