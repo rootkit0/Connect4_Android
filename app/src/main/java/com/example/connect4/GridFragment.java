@@ -15,9 +15,13 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 public class GridFragment extends Fragment {
-
     //Variable for the timer
-    public int counter = 25;
+    private int counter = 25;
+    //Data of the intent
+    private Bundle data;
+    private String nickname;
+    private int num_columns;
+    private Boolean timer_status;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,16 +30,19 @@ public class GridFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //Get data from game activity
+        GameActivity gameActivity = (GameActivity) getActivity();
+        this.data = gameActivity.getParameters();
+        this.nickname = data.getString("nickname");
+        this.num_columns = data.getInt("board_size");
+        this.timer_status = data.getBoolean("timer_status");
+        //Call the fragment layout
         return inflater.inflate(R.layout.grid_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        final String nickname = getArguments().getString("nickname");
-        final int num_columns = getArguments().getInt("board_size");
-        final Boolean timer_status = getArguments().getBoolean("timer_status");
 
         GridView board = getView().findViewById(R.id.gridView);
         //Set num columns and column width
@@ -62,7 +69,7 @@ public class GridFragment extends Fragment {
         CountDownTimer count_timer = null;
         if(timer_status) {
             timer.setTextColor(Color.RED);
-            count_timer = new CountDownTimer(25000, 1000) {
+            count_timer = new CountDownTimer(26000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     timer.setText(String.valueOf(counter));
@@ -78,6 +85,7 @@ public class GridFragment extends Fragment {
                     i.putExtra("board_size", num_columns);
                     i.putExtra("time_status", true);
                     i.putExtra("time_value", timer.getText());
+                    i.putExtra("result", "Has perdido!");
                     startActivity(i);
                 }
             }.start();

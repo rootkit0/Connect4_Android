@@ -9,10 +9,6 @@ public class Move {
         this.position = position;
     }
 
-    public int getPlayer() {
-        return player;
-    }
-
     public Position getPosition() {
         return position;
     }
