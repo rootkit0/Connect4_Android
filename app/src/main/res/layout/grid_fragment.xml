@@ -7,15 +7,15 @@
 
     <GridView
         android:id="@+id/gridView"
-        android:layout_width="1050px"
-        android:layout_height="1050px"
+        android:layout_width="385dp"
+        android:layout_height="385dp"
         android:stretchMode="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
+        app:layout_constraintVertical_bias="0.9" />
 
     <TextView
         android:id="@+id/textView7"
