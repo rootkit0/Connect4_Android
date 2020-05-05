@@ -7,8 +7,8 @@
 
     <GridView
         android:id="@+id/gridView"
-        android:layout_width="385dp"
-        android:layout_height="385dp"
+        android:layout_width="1050px"
+        android:layout_height="1050px"
         android:stretchMode="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -16,7 +16,6 @@ public class GameActivity extends FragmentActivity {
     }
 
     public Bundle getParameters() {
-
         return this.getIntent().getExtras();
     }
 }

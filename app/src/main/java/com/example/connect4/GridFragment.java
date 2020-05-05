@@ -26,16 +26,16 @@ public class GridFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Get data from game activity
         GameActivity gameActivity = (GameActivity) getActivity();
         this.data = gameActivity.getParameters();
         this.nickname = data.getString("nickname");
         this.num_columns = data.getInt("board_size");
         this.timer_status = data.getBoolean("timer_status");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Call the fragment layout
         return inflater.inflate(R.layout.grid_fragment, container, false);
     }
@@ -64,6 +64,7 @@ public class GridFragment extends Fragment {
         final Game game_instance = new Game(num_columns, num_columns, 4);
         //Turn image
         ImageView turn = getView().findViewById(R.id.imageView3);
+        turn.setImageResource(R.drawable.turn_red);
         //Display timer
         final TextView timer = getView().findViewById(R.id.textView8);
         CountDownTimer count_timer = null;
