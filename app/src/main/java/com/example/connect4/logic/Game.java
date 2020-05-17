@@ -1,11 +1,10 @@
-package com.example.connect4;
+package com.example.connect4.logic;
 
-import android.widget.ImageView;
 import java.util.Random;
 
 public class Game {
 
-    private final Board board;
+    public final Board board;
     private final int toWin;
     private Status status;
     private int columns;
@@ -25,35 +24,28 @@ public class Game {
         return board.canPlayColumn(column);
     }
 
-    public Move drop(int column, ImageView turn) {
-        if(this.status == Status.PLAYER1_PLAYS) {
-            int row = board.firstEmptyRow(column);
-            this.board.cells[row][column] = 1;
-            if(board.maxConnected(new Position(row, column)) == this.toWin) {
+    public Move drop(int column) {
+        int row = board.firstEmptyRow(column);
+        this.board.cells[row][column] = 1;
+
+        if(board.maxConnected(new Position(row, column)) == this.toWin) {
+            if(this.status == Status.PLAYER1_PLAYS) {
                 this.status = Status.PLAYER1_WINS;
             }
-            else if(!board.hasValidMoves()) {
-                this.status = Status.DRAW;
-            }
             else {
-                toggleTurn();
-                turn.setImageResource(R.drawable.turn_yellow);
+                this.status = Status.PLAYER2_WINS;
             }
+        }
+        else if(!board.hasValidMoves()) {
+            this.status = Status.DRAW;
+        }
+        else {
+            toggleTurn();
+        }
+        if(this.status == Status.PLAYER1_PLAYS) {
             return new Move(1,  new Position(row, column));
         }
         else {
-            int row = board.firstEmptyRow(column);
-            this.board.cells[row][column] = 2;
-            if(board.maxConnected(new Position(row, column)) == this.toWin) {
-                this.status = Status.PLAYER2_WINS;
-            }
-            else if(!board.hasValidMoves()) {
-                this.status = Status.DRAW;
-            }
-            else {
-                toggleTurn();
-                turn.setImageResource(R.drawable.turn_red);
-            }
             return new Move(2,  new Position(row, column));
         }
     }

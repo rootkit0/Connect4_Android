@@ -29,4 +29,14 @@
     <string name="result_text5">Introducir fecha i hora</string>
     <string name="result_text6">Introducir alias...</string>
     <string name="result_text7">Introducir e-mail</string>
+    <string name="log_text1">Contenido del log</string>
+    <string name="nickname_error">Tienes que introducir un nickname!</string>
+    <string name="intent_options_nickname">nickname</string>
+    <string name="intent_options_timer">timer_status</string>
+    <string name="intent_options_size">board_size</string>
+    <string name="intent_game_nickname">nickname</string>
+    <string name="intent_game_size">board_size</string>
+    <string name="intent_game_timestatus">time_status</string>
+    <string name="intent_game_timevalue">time_value</string>
+    <string name="intent_game_result">result</string>
 </resources>

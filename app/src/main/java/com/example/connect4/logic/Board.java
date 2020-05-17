@@ -1,4 +1,4 @@
-package com.example.connect4;
+package com.example.connect4.logic;
 
 public class Board {
 
@@ -13,15 +13,14 @@ public class Board {
     }
 
     public boolean canPlayColumn(int column) {
-        boolean canPlay = false;
         if(column >= 0 && column < numColumns) {
             for(int i=0; i<numRows; ++i) {
                 if(cells[i][column] == 0) {
-                    canPlay = true;
+                    return true;
                 }
             }
         }
-        return canPlay;
+        return false;
     }
 
     public boolean hasValidMoves() {

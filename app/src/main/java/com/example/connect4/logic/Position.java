@@ -1,4 +1,4 @@
-package com.example.connect4;
+package com.example.connect4.logic;
 
 public class Position {
 
@@ -17,5 +17,4 @@ public class Position {
     public int getColumn() {
         return this.column;
     }
-
 }

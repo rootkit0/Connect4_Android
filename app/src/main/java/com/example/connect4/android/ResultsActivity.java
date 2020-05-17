@@ -1,4 +1,4 @@
-package com.example.connect4;
+package com.example.connect4.android;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,8 @@ import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.connect4.R;
+
 public class ResultsActivity extends AppCompatActivity {
 
     String email_content;
@@ -26,11 +28,11 @@ public class ResultsActivity extends AppCompatActivity {
 
         //Get content from intent
         Bundle data = this.getIntent().getExtras();
-        String nickname = data.getString("nickname");
-        int board_size = data.getInt("board_size");
-        Boolean time_status = data.getBoolean("time_status");
-        String time = data.getString("time_value");
-        String result = data.getString("result");
+        String nickname = data.getString(String.valueOf(R.string.intent_game_nickname));
+        int board_size = data.getInt(String.valueOf(R.string.intent_game_size));
+        Boolean time_status = data.getBoolean(String.valueOf(R.string.intent_game_timestatus));
+        String time = data.getString(String.valueOf(R.string.intent_game_timevalue));
+        String result = data.getString(String.valueOf(R.string.intent_game_result));
 
         EditText dateTime = (EditText)findViewById(R.id.editText);
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
@@ -46,9 +48,6 @@ public class ResultsActivity extends AppCompatActivity {
         if(time_status) {
             if(Integer.parseInt(time) > 0) {
                 this.log_content += "Han sobrado " + time + " segundos!";
-            }
-            else {
-                this.log_content += "Has agotado el tiempo!";
             }
         }
         log.setText(log_content);

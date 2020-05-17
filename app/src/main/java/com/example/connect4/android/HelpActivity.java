@@ -1,4 +1,4 @@
-package com.example.connect4;
+package com.example.connect4.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.connect4.R;
 
 public class HelpActivity extends AppCompatActivity {
 

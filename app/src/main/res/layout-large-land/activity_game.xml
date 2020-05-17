@@ -12,14 +12,14 @@
 
         <fragment
             android:id="@+id/fragmentGame"
-            class="com.example.connect4.GridFragment"
-            android:layout_width="0px"
+            class="com.example.connect4.android.GridFragment"
+            android:layout_width="410dp"
             android:layout_height="match_parent"
             android:layout_weight="50" />
 
         <fragment
             android:id="@+id/logFragment"
-            class="com.example.connect4.LogFragment"
+            class="com.example.connect4.android.LogFragment"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="50" />

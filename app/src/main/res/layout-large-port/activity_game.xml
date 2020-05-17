@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,14 +12,14 @@
 
         <fragment
             android:id="@+id/fragmentGame"
-            class="com.example.connect4.GridFragment"
+            class="com.example.connect4.android.GridFragment"
             android:layout_width="match_parent"
-            android:layout_height="0px"
+            android:layout_height="322dp"
             android:layout_weight="50" />
 
         <fragment
             android:id="@+id/logFragment"
-            class="com.example.connect4.LogFragment"
+            class="com.example.connect4.android.LogFragment"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="50" />

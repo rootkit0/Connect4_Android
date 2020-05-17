@@ -1,8 +1,10 @@
-package com.example.connect4;
+package com.example.connect4.android;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentActivity;
+
+import com.example.connect4.R;
 
 public class GameActivity extends FragmentActivity {
 

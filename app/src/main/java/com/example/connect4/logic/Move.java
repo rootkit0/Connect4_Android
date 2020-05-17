@@ -1,4 +1,4 @@
-package com.example.connect4;
+package com.example.connect4.logic;
 
 public class Move {
     private final int player;
