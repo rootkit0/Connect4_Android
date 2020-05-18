@@ -48,15 +48,15 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="268dp"
-        android:layout_height="42dp"
+        android:layout_width="293dp"
+        android:layout_height="43dp"
         android:ems="8"
         android:hint="@string/options_input1"
         android:inputType="text"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.36" />
