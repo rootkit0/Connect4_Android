@@ -15,12 +15,11 @@ public class GameActivity extends FragmentActivity implements GridFragment.OnCha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
         //Grid fragment
         this.gridFragment = (GridFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentGame);
         this.gridFragment.setChangeListener(this);
+        //Log fragment
         this.logFragment = (LogFragment)getSupportFragmentManager().findFragmentById(R.id.logFragment);
-        this.logFragment.setParameters(getIntent().getExtras());
     }
 
     public Bundle getParameters() {

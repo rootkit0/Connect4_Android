@@ -8,15 +8,15 @@
 
     <GridView
         android:id="@+id/gridView"
-        android:layout_width="551dp"
-        android:layout_height="499dp"
+        android:layout_width="569dp"
+        android:layout_height="531dp"
         android:stretchMode="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.736" />
 
     <TextView
         android:id="@+id/textView7"

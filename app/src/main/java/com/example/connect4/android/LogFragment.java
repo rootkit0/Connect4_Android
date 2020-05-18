@@ -18,6 +18,8 @@ public class LogFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GameActivity gameActivity = (GameActivity) getActivity();
+        this.data = gameActivity.getIntent().getExtras();
     }
 
     @Override
@@ -30,10 +32,6 @@ public class LogFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         //Init the log content
         this.logs = getView().findViewById(R.id.logs);
-    }
-
-    public void setParameters(Bundle data) {
-        this.data = data;
     }
 
     public void addLog() {
