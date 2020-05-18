@@ -37,6 +37,8 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     private ImageAdapter boardAdapter;
     private GridView board;
     private GameActivity gameActivity;
+    //Listener
+    OnChangeListener listener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -182,5 +184,13 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
             timer.setText(String.valueOf(counter));
             timer.setTextColor(Color.BLUE);
         }
+    }
+
+    public interface OnChangeListener {
+        void onChange();
+    }
+
+    public void setChangeListener(OnChangeListener listener) {
+        this.listener = listener;
     }
 }
