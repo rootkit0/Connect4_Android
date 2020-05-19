@@ -18,7 +18,12 @@ import androidx.fragment.app.Fragment;
 import com.example.connect4.R;
 import com.example.connect4.logic.Game;
 import com.example.connect4.logic.Move;
+import com.example.connect4.logic.Position;
 import com.example.connect4.logic.Status;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class GridFragment extends Fragment implements AdapterView.OnItemClickListener {
     //Variable for the timer
@@ -37,6 +42,9 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     private ImageAdapter boardAdapter;
     private GridView board;
     private GameActivity gameActivity;
+    private String start_drop;
+    private String final_drop;
+    private DateFormat df;
     //Listener
     OnChangeListener listener;
 
@@ -61,6 +69,8 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         board = getView().findViewById(R.id.gridView);
+        df = new SimpleDateFormat("HH:mm:ss");
+        this.start_drop = df.format(Calendar.getInstance().getTime());
         //Set columns width
         this.setColumnWidth(board);
         //Start the game
@@ -80,6 +90,8 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
             int played_column = mv.getPosition().getColumn();
             game_instance.board.cells[played_row][played_column] = 1;
             boardAdapter.notifyDataSetChanged();
+            this.final_drop = df.format(Calendar.getInstance().getTime());
+            this.listener.onChange(new Position(played_row, played_column), (String) timer.getText(), start_drop, final_drop);
             if(game_instance.checkForFinish()) {
                 gameFinished();
             }
@@ -94,6 +106,7 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
         int computer_played_column = computer_mv.getPosition().getColumn();
         game_instance.board.cells[computer_played_row][computer_played_column] = 2;
         boardAdapter.notifyDataSetChanged();
+        this.start_drop = df.format(Calendar.getInstance().getTime());
         if(game_instance.checkForFinish()) {
             gameFinished();
         }
@@ -187,7 +200,7 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     public interface OnChangeListener {
-        void onChange();
+        void onChange(Position pos, String timer_value, String start, String end);
     }
 
     public void setChangeListener(OnChangeListener listener) {

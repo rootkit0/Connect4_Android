@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.connect4.R;
+import com.example.connect4.logic.Position;
 
 public class GameActivity extends FragmentActivity implements GridFragment.OnChangeListener {
 
@@ -27,9 +28,10 @@ public class GameActivity extends FragmentActivity implements GridFragment.OnCha
     }
 
     @Override
-    public void onChange() {
+    public void onChange(Position pos, String timer_value, String start, String end) {
         if(this.logFragment != null && this.logFragment.isInLayout()) {
-            this.logFragment.addLog();
+            this.logFragment.addPosition(pos);
+            this.logFragment.addTime(timer_value, start, end);
         }
     }
 }
