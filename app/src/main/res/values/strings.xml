@@ -39,4 +39,7 @@
     <string name="intent_game_timestatus">time_status</string>
     <string name="intent_game_timevalue">time_value</string>
     <string name="intent_game_result">result</string>
+    <string name="menu_button4">Consultar partidas</string>
+    <string name="db_button1">Ir al menu</string>
+    <string name="detail_button1">Volver</string>
 </resources>
