@@ -1,6 +1,8 @@
 package com.example.connect4.android;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -45,6 +47,7 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     private String start_drop;
     private String final_drop;
     private DateFormat df;
+    private String result;
     //Listener
     OnChangeListener listener;
 
@@ -113,7 +116,7 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     private void gameFinished() {
-        String result = "";
+        result = "";
         if(timer_status) {
             count_timer.cancel();
         }
@@ -129,6 +132,7 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
             result = "Habeis empatado!";
             Toast.makeText(this.gameActivity, result, Toast.LENGTH_SHORT).show();
         }
+        addToDatabase();
         Intent i = new Intent(this.gameActivity, ResultsActivity.class);
         i.putExtra(String.valueOf(R.string.intent_game_nickname), nickname);
         i.putExtra(String.valueOf(R.string.intent_game_size), num_columns);
@@ -181,13 +185,15 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
                 public void onFinish() {
                     //Stop the game
                     game_instance.setTimeFinished();
-                    Toast.makeText(getActivity(), "Has agotado el tiempo!", Toast.LENGTH_LONG).show();
+                    result = "Has agotado el tiempo!";
+                    addToDatabase();
+                    Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getActivity(), ResultsActivity.class);
                     i.putExtra(String.valueOf(R.string.intent_game_nickname), nickname);
                     i.putExtra(String.valueOf(R.string.intent_game_size), num_columns);
                     i.putExtra(String.valueOf(R.string.intent_game_timestatus), true);
                     i.putExtra(String.valueOf(R.string.intent_game_timevalue), timer.getText());
-                    i.putExtra(String.valueOf(R.string.intent_game_result), "Has agotado el tiempo!");
+                    i.putExtra(String.valueOf(R.string.intent_game_result), result);
                     startActivity(i);
                     gameActivity.finish();
                 }
@@ -196,6 +202,33 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
         else {
             timer.setText(String.valueOf(counter));
             timer.setTextColor(Color.BLUE);
+        }
+    }
+
+    private void addToDatabase() {
+        DBHelper logDbHelper = new DBHelper(getActivity(), "Matches", null, 3);
+        SQLiteDatabase db = logDbHelper.getWritableDatabase();
+
+        if(db != null) {
+            //Add data to db entry var
+            ContentValues entry = new ContentValues();
+            entry.put("nickname", this.nickname);
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
+            entry.put("date", df.format(Calendar.getInstance().getTime()));
+            entry.put("board_size", this.num_columns);
+            entry.put("timer_status", this.timer_status);
+            if(this.timer_status) {
+                entry.put("timer", (String) timer.getText());
+            }
+            entry.put("result", this.result);
+            //Insert the entry to the db
+            try {
+                db.insert("Matches", null, entry);
+                Toast.makeText(getActivity(), "Partida guardada a la BD correctamente", Toast.LENGTH_SHORT).show();
+            }
+            catch(Exception e) {
+                Toast.makeText(getActivity(), "Error al guardar la partida en la BD", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

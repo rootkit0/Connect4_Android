@@ -8,8 +8,8 @@
 
     <EditText
         android:id="@+id/editText3"
-        android:layout_width="272dp"
-        android:layout_height="46dp"
+        android:layout_width="257dp"
+        android:layout_height="43dp"
         android:autoLink="email"
         android:autofillHints=""
         android:ems="8"
@@ -17,10 +17,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintHorizontal_bias="0.77"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintVertical_bias="0.331" />
 
     <Button
         android:id="@+id/button4"
@@ -71,18 +71,18 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="272dp"
-        android:layout_height="46dp"
+        android:layout_width="250dp"
+        android:layout_height="43dp"
         android:autofillHints=""
         android:ems="8"
         android:hint="@string/result_text5"
         android:inputType="date|time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintVertical_bias="0.331" />
 
     <TextView
         android:id="@+id/textView5"
@@ -98,18 +98,18 @@
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="272dp"
-        android:layout_height="46dp"
+        android:layout_width="251dp"
+        android:layout_height="40dp"
         android:autofillHints=""
         android:ems="8"
         android:hint="@string/result_text6"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561" />
+        app:layout_constraintVertical_bias="0.555" />
 
     <TextView
         android:id="@+id/textView9"

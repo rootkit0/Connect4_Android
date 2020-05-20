@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         Button btn_gameRules = (Button)findViewById(R.id.button1);
         btn_gameRules.setOnClickListener(new gameRules());
 
+        Button  btn_matches = (Button)findViewById(R.id.button7);
+        btn_matches.setOnClickListener(new viewMatches());
+
         Button btn_exitGame = (Button)findViewById(R.id.button2);
         btn_exitGame.setOnClickListener(new exitGame());
     }
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent i = new Intent(MainActivity.this, HelpActivity.class);
-            startActivityForResult(i, 1);
+            startActivity(i);
         }
     }
 
@@ -46,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             System.exit(0);
+        }
+    }
+
+    private class viewMatches implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(MainActivity.this, AccessBDActivity.class);
+            startActivity(i);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.connect4.android;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,8 +22,6 @@ public class HelpActivity extends AppCompatActivity {
     private class goBack implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent();
-            setResult(RESULT_OK, intent);
             finish();
         }
     }

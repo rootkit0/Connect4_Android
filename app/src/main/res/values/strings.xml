@@ -42,4 +42,6 @@
     <string name="menu_button4">Consultar partidas</string>
     <string name="db_button1">Ir al menu</string>
     <string name="detail_button1">Volver</string>
+    <string name="db_text1">Partidas guardadas</string>
+    <string name="detail_text1">Detalles partida</string>
 </resources>
