@@ -1,4 +1,4 @@
-package com.example.connect4.android;
+package com.example.connect4.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.connect4.R;
+import com.example.connect4.fragments.DetailFragment;
+import com.example.connect4.fragments.QueryFragment;
 
 public class AccessBDActivity extends FragmentActivity implements QueryFragment.OnClickListener {
     private QueryFragment queryFrag;

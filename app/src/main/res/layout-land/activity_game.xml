@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragmentGame"
-        class="com.example.connect4.android.GridFragment"
+        class="com.example.connect4.fragments.GridFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50" />

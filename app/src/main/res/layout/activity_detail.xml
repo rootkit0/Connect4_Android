@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragmentDetail"
-        android:name="com.example.connect4.android.DetailFragment"
+        android:name="com.example.connect4.fragments.DetailFragment"
         android:layout_width="358dp"
         android:layout_height="515dp"
         android:layout_marginTop="28dp"

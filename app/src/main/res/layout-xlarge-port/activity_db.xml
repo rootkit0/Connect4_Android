@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragmentQuery"
-        android:name="com.example.connect4.android.QueryFragment"
+        android:name="com.example.connect4.fragments.QueryFragment"
         android:layout_width="524dp"
         android:layout_height="315dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/fragmentDetail"
-        android:name="com.example.connect4.android.DetailFragment"
+        android:name="com.example.connect4.fragments.DetailFragment"
         android:layout_width="525dp"
         android:layout_height="342dp"
         app:layout_constraintBottom_toBottomOf="parent"

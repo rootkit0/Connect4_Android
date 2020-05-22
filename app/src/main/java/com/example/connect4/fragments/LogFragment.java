@@ -1,4 +1,4 @@
-package com.example.connect4.android;
+package com.example.connect4.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

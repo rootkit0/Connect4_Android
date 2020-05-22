@@ -1,4 +1,4 @@
-package com.example.connect4.android;
+package com.example.connect4.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

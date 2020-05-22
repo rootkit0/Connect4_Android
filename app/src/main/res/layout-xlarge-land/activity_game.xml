@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/fragmentGame"
-        class="com.example.connect4.android.GridFragment"
+        class="com.example.connect4.fragments.GridFragment"
         android:layout_width="667dp"
         android:layout_height="match_parent"
         android:layout_weight="50"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/logFragment"
-        class="com.example.connect4.android.LogFragment"
+        class="com.example.connect4.fragments.LogFragment"
         android:layout_width="349dp"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"

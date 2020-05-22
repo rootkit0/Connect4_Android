@@ -1,4 +1,4 @@
-package com.example.connect4.android;
+package com.example.connect4.fragments;
 
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.connect4.R;
+import com.example.connect4.activities.DBHelper;
 
 public class DetailFragment extends Fragment {
     private TextView details;

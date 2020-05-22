@@ -1,4 +1,4 @@
-package com.example.connect4.android;
+package com.example.connect4.fragments;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -21,6 +21,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.connect4.R;
+import com.example.connect4.activities.DBHelper;
+import com.example.connect4.activities.ImageAdapter;
+import com.example.connect4.activities.ResultsActivity;
 import com.example.connect4.logic.Game;
 import com.example.connect4.logic.Move;
 import com.example.connect4.logic.Position;

@@ -1,4 +1,4 @@
-package com.example.connect4.android;
+package com.example.connect4.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +11,7 @@ import android.widget.SimpleCursorAdapter;
 import androidx.fragment.app.ListFragment;
 
 import com.example.connect4.R;
+import com.example.connect4.activities.DBHelper;
 
 public class QueryFragment extends ListFragment {
     @Override

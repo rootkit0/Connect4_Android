@@ -1,4 +1,4 @@
-package com.example.connect4.android;
+package com.example.connect4.activities;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

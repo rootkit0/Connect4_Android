@@ -1,10 +1,12 @@
-package com.example.connect4.android;
+package com.example.connect4.activities;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.connect4.R;
+import com.example.connect4.fragments.GridFragment;
+import com.example.connect4.fragments.LogFragment;
 import com.example.connect4.logic.Position;
 
 public class GameActivity extends FragmentActivity implements GridFragment.OnChangeListener {
