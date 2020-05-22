@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Random;
 
 public class Game implements Serializable {
-
     public final Board board;
     private final int toWin;
     private Status status;

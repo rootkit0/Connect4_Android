@@ -17,8 +17,6 @@
         </activity>
         <activity android:name=".android.HelpActivity">
         </activity>
-        <activity android:name=".android.GameOptionsActivity">
-        </activity>
         <activity android:name=".android.GameActivity">
         </activity>
         <activity android:name=".android.ResultsActivity">
@@ -26,6 +24,8 @@
         <activity android:name=".android.AccessBDActivity">
         </activity>
         <activity android:name=".android.DetailRegActivity">
+        </activity>
+        <activity android:name=".android.OptionsActivity">
         </activity>
     </application>
 </manifest>

@@ -1,6 +1,8 @@
 package com.example.connect4.android;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +14,15 @@ import com.example.connect4.R;
 import com.example.connect4.logic.Position;
 
 public class LogFragment extends Fragment {
-    private Bundle data;
-    String nickname;
-    int board_size;
-    boolean timer_status;
-    TextView logs;
+    private String nickname;
+    private int board_size;
+    private boolean timer_status;
+    private TextView logs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GameActivity gameActivity = (GameActivity) getActivity();
-        this.data = gameActivity.getIntent().getExtras();
-        this.nickname = data.getString(String.valueOf(R.string.intent_options_nickname));
-        this.board_size = data.getInt(String.valueOf(R.string.intent_options_size));
-        this.timer_status = data.getBoolean(String.valueOf(R.string.intent_options_timer));
+        getSharedPreferences();
     }
 
     @Override
@@ -36,9 +33,15 @@ public class LogFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //Init the log content
         this.logs = getView().findViewById(R.id.logsContent);
         this.initLogs();
+    }
+
+    private void getSharedPreferences() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        this.nickname = preferences.getString("nickname", "Jugador 1");
+        this.board_size = Integer.parseInt(preferences.getString("boardSize", "7"));
+        this.timer_status = preferences.getBoolean("timer", false);
     }
 
     public void initLogs() {

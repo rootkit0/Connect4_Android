@@ -1,7 +1,6 @@
 package com.example.connect4.logic;
 
 public class Direction {
-
     public static final Direction DOWN            = new Direction(1, 0);
     public static final Direction RIGHT           = new Direction(0, 1);
     public static final Direction MAIN_DIAGONAL   = new Direction(1, 1);

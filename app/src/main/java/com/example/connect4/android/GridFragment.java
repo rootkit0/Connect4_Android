@@ -3,10 +3,12 @@ package com.example.connect4.android;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,22 +32,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class GridFragment extends Fragment implements AdapterView.OnItemClickListener {
-    //Variable for the timer
     private int counter = 25;
-    //Data of the intent
-    private Bundle data;
     private String nickname;
     private int num_columns;
     private Boolean timer_status;
-    //Data for the grid view
     private int column_width;
     private Game game_instance;
     private ImageView turn;
     private TextView timer;
     private CountDownTimer count_timer;
-    private ImageAdapter boardAdapter;
     private GridView board;
-    private GameActivity gameActivity;
+    private ImageAdapter boardAdapter;
     private String start_drop;
     private String final_drop;
     private DateFormat df;
@@ -56,17 +53,18 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Get data from game activity
-        gameActivity = (GameActivity) getActivity();
-        this.data = gameActivity.getParameters();
-        this.nickname = data.getString(String.valueOf(R.string.intent_options_nickname));
-        this.num_columns = data.getInt(String.valueOf(R.string.intent_options_size));
-        this.timer_status = data.getBoolean(String.valueOf(R.string.intent_options_timer));
+        getSharedPreferences();
+    }
+
+    private void getSharedPreferences() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        this.nickname = preferences.getString("nickname", "Jugador 1");
+        this.num_columns = Integer.parseInt(preferences.getString("boardSize", "7"));
+        this.timer_status = preferences.getBoolean("timer", false);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //Call the fragment layout
         return inflater.inflate(R.layout.grid_fragment, container, false);
     }
 
@@ -76,11 +74,8 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
         board = getView().findViewById(R.id.gridView);
         df = new SimpleDateFormat("HH:mm:ss");
         this.start_drop = df.format(Calendar.getInstance().getTime());
-        //Set columns width
         this.setColumnWidth(board);
-        //Start the game
         this.startGame();
-        //Call the adapter to set the content of the grid view
         boardAdapter = new ImageAdapter(getActivity(), num_columns, column_width, game_instance);
         board.post(() -> board.setAdapter(boardAdapter));
         this.board.setOnItemClickListener(this);
@@ -124,29 +119,25 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
         }
         if(game_instance.getStatus() == Status.PLAYER1_WINS) {
             result = "Has ganado!";
-            Toast.makeText(this.gameActivity, result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
         }
         else if(game_instance.getStatus() == Status.PLAYER2_WINS) {
             result = "Has perdido!";
-            Toast.makeText(this.gameActivity, result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
         }
         else if(game_instance.getStatus() == Status.DRAW) {
             result = "Habeis empatado!";
-            Toast.makeText(this.gameActivity, result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
         }
         addToDatabase();
-        Intent i = new Intent(this.gameActivity, ResultsActivity.class);
-        i.putExtra(String.valueOf(R.string.intent_game_nickname), nickname);
-        i.putExtra(String.valueOf(R.string.intent_game_size), num_columns);
-        i.putExtra(String.valueOf(R.string.intent_game_timestatus), timer_status);
+        Intent i = new Intent(getActivity(), ResultsActivity.class);
         i.putExtra(String.valueOf(R.string.intent_game_timevalue), timer.getText());
         i.putExtra(String.valueOf(R.string.intent_game_result), result);
         startActivity(i);
-        gameActivity.finish();
+        getActivity().finish();
     }
 
     private void setColumnWidth(GridView board) {
-        //Set num columns and column width
         board.setNumColumns(num_columns);
         if(num_columns == 5) {
             column_width = 210;
@@ -163,16 +154,13 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     private void startGame() {
-        //Initialize the game logic instance
         game_instance = new Game(num_columns, num_columns, 4);
-        //Turn image
         turn = getView().findViewById(R.id.imageView3);
         turn.setImageResource(R.drawable.turn_red);
         this.startTimer();
     }
 
     private void startTimer() {
-        //Display timer
         timer = getView().findViewById(R.id.textView8);
         count_timer = null;
         if(timer_status) {
@@ -185,19 +173,15 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
                 }
                 @Override
                 public void onFinish() {
-                    //Stop the game
                     game_instance.setTimeFinished();
                     result = "Has agotado el tiempo!";
                     addToDatabase();
                     Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getActivity(), ResultsActivity.class);
-                    i.putExtra(String.valueOf(R.string.intent_game_nickname), nickname);
-                    i.putExtra(String.valueOf(R.string.intent_game_size), num_columns);
-                    i.putExtra(String.valueOf(R.string.intent_game_timestatus), true);
                     i.putExtra(String.valueOf(R.string.intent_game_timevalue), timer.getText());
                     i.putExtra(String.valueOf(R.string.intent_game_result), result);
                     startActivity(i);
-                    gameActivity.finish();
+                    getActivity().finish();
                 }
             }.start();
         }
@@ -210,9 +194,7 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
     private void addToDatabase() {
         DBHelper logDbHelper = new DBHelper(getActivity(), "Matches", null, 3);
         SQLiteDatabase db = logDbHelper.getWritableDatabase();
-
         if(db != null) {
-            //Add data to db entry var
             ContentValues entry = new ContentValues();
             entry.put("nickname", this.nickname);
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
@@ -223,7 +205,6 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
                 entry.put("timer", (String) timer.getText());
             }
             entry.put("result", this.result);
-            //Insert the entry to the db
             try {
                 db.insert("Matches", null, entry);
                 Toast.makeText(getActivity(), "Partida guardada a la BD correctamente", Toast.LENGTH_SHORT).show();

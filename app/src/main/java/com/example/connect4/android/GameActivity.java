@@ -22,10 +22,6 @@ public class GameActivity extends FragmentActivity implements GridFragment.OnCha
         this.logFragment = (LogFragment)getSupportFragmentManager().findFragmentById(R.id.logFragment);
     }
 
-    public Bundle getParameters() {
-        return this.getIntent().getExtras();
-    }
-
     @Override
     public void onChange(Position pos, String timer_value, String start, String end) {
         if(this.logFragment != null && this.logFragment.isInLayout()) {

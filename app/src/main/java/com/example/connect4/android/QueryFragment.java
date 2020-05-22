@@ -43,12 +43,12 @@ public class QueryFragment extends ListFragment {
 
     OnClickListener listener;
 
-    public void setClickListener(OnClickListener listener) {
-        this.listener = listener;
-    }
-
     public interface OnClickListener {
         void onItemClick(long id);
+    }
+
+    public void setClickListener(OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:defaultValue="@string/preference_text1"
+        android:key="nickname"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/preference_text2"
+        android:summary="@string/preference_text3"
+        android:dialogTitle="@string/preference_text4"/>
+
+    <ListPreference
+        android:defaultValue="7"
+        android:entries="@array/board_size"
+        android:entryValues="@array/board_size"
+        android:key="boardSize"
+        android:title="@string/preference_text7"
+        android:summary="@string/preference_text8"
+        android:dialogTitle="@string/preference_text9" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="timer"
+        android:title="@string/preference_text5"
+        android:summary="@string/preference_text6"/>
+</PreferenceScreen>

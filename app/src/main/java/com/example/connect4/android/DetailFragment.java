@@ -1,8 +1,10 @@
 package com.example.connect4.android;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +17,16 @@ import com.example.connect4.R;
 public class DetailFragment extends Fragment {
     private TextView details;
     private String nickname;
-    private String date;
     private int board_size;
     private boolean timer_status;
+    private String date;
     private int timer;
     private String result;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSharedPreferences();
     }
 
     @Override
@@ -34,6 +37,13 @@ public class DetailFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    private void getSharedPreferences() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        this.nickname = preferences.getString("nickname", "Jugador 1");
+        this.board_size = Integer.parseInt(preferences.getString("boardSize", "7"));
+        this.timer_status = preferences.getBoolean("timer", false);
     }
 
     public void getDetails(long id) {

@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.connect4.R;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +30,26 @@ public class MainActivity extends AppCompatActivity {
         btn_exitGame.setOnClickListener(new exitGame());
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.gameOptions) {
+            Intent i = new Intent(this, OptionsActivity.class);
+            startActivity(i);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private class startGame implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(MainActivity.this, GameOptionsActivity.class);
+            Intent i = new Intent(MainActivity.this, GameActivity.class);
             startActivity(i);
         }
     }

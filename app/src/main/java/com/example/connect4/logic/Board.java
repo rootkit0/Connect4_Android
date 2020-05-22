@@ -1,7 +1,6 @@
 package com.example.connect4.logic;
 
 public class Board {
-
     private final int numRows;
     private final int numColumns;
     public final int[][] cells;
