@@ -1,8 +1,9 @@
 package com.example.connect4.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Game {
+public class Game implements Serializable {
 
     public final Board board;
     private final int toWin;

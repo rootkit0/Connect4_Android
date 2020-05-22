@@ -10,9 +10,9 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.connect4.R;
 
 public class AccessBDActivity extends FragmentActivity implements QueryFragment.OnClickListener {
-
     private QueryFragment queryFrag;
     private DetailFragment detailFrag;
+    private long id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class AccessBDActivity extends FragmentActivity implements QueryFragment.
 
     @Override
     public void onItemClick(long id) {
+        this.id = id;
         if(this.detailFrag != null && this.detailFrag.isInLayout()) {
             //Show details on same activity
             detailFrag.getDetails(id);
@@ -46,6 +47,21 @@ public class AccessBDActivity extends FragmentActivity implements QueryFragment.
         @Override
         public void onClick(View v) {
             finish();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong("queryId", this.id);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.id = savedInstanceState.getLong("queryId");
+        if(this.detailFrag != null && this.detailFrag.isInLayout()) {
+            onItemClick(this.id);
         }
     }
 }

@@ -17,7 +17,6 @@ public class ImageAdapter extends BaseAdapter {
     private int[][] cells;
     private ImageView imageView;
 
-    // Constructor
     public ImageAdapter(Context c, int num_columns, int column_width, Game game_instance) {
         this.mContext = c;
         this.num_columns = num_columns;

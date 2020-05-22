@@ -1,6 +1,7 @@
 package com.example.connect4.android;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import com.example.connect4.logic.Move;
 import com.example.connect4.logic.Position;
 import com.example.connect4.logic.Status;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -238,5 +240,25 @@ public class GridFragment extends Fragment implements AdapterView.OnItemClickLis
 
     public void setChangeListener(OnChangeListener listener) {
         this.listener = listener;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (OnChangeListener) context;
+        }
+        catch(ClassCastException e) {
+            throw new ClassCastException(getActivity().toString());
+        }
+    }
+
+    public void onRestoreInstance(Bundle savedInstanceState) {
+        this.game_instance = (Game) savedInstanceState.getSerializable("game");
+        this.boardAdapter = new ImageAdapter(getActivity(), num_columns, column_width, game_instance);
+    }
+
+    public Serializable getGameState() {
+        return this.game_instance;
     }
 }

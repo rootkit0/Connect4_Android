@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import com.example.connect4.R;
 
 public class DetailFragment extends Fragment {
-
     private TextView details;
     private String nickname;
     private String date;
@@ -62,28 +61,22 @@ public class DetailFragment extends Fragment {
                 this.timer = cursor.getInt(5);
                 this.result = cursor.getString(6);
             } while(cursor.moveToNext());
-            //When the cursor has found the positon print the details
-            if(this.timer_status) {
-                this.details.setText(
-                        "Alias: " + this.nickname + "\n"
-                        + "Fecha: " + this.date + "\n"
-                        + "Tamano tablero: " + this.board_size + "\n"
-                        + "Temporizador activado" + "\n"
-                        + "Tiempo restante: " + this.timer + "\n"
-                        + "Resultado: " + this.result
-                );
-            }
-            else {
-                this.details.setText(
-                        "Alias: " + this.nickname + "\n"
-                        + "Fecha: " + this.date + "\n"
-                        + "Tamano tablero: " + this.board_size + "\n"
-                        + "Temporizador desactivado" + "\n"
-                        + "Resultado: " + this.result
-                );
-            }
+            this.setDetails();
         }
         cursor.close();
         db.close();
+    }
+
+    private void setDetails() {
+        //When the cursor has found the positon print the details
+        String detailsText = "Alias: " + this.nickname + "\n" + "Fecha: " + this.date + "\n" + "Tamano tablero: " + this.board_size + "\n";
+        if(this.timer_status) {
+            detailsText += "Temporizador activado" + "\n" + "Tiempo restante: " + this.timer + "\n";
+        }
+        else {
+            detailsText += "Temporizador desactivado" + "\n";
+        }
+        detailsText += "Resultado: " + this.result;
+        this.details.setText(detailsText);
     }
 }

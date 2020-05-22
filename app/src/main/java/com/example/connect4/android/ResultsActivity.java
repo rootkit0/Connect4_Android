@@ -17,9 +17,12 @@ import com.example.connect4.R;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    String email_content;
-    String log_content;
-    String date_content;
+    private EditText email;
+    private EditText log;
+    private EditText dateTime;
+    private String email_content;
+    private String log_content;
+    private String date_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,12 @@ public class ResultsActivity extends AppCompatActivity {
         String time = data.getString(String.valueOf(R.string.intent_game_timevalue));
         String result = data.getString(String.valueOf(R.string.intent_game_result));
 
-        EditText dateTime = (EditText)findViewById(R.id.editText);
+        dateTime = (EditText)findViewById(R.id.editText);
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
         this.date_content = df.format(Calendar.getInstance().getTime());
         dateTime.setText(date_content);
 
-        EditText log = (EditText)findViewById(R.id.editText2);
+        log = (EditText)findViewById(R.id.editText2);
         this.log_content = "Alias: " + nickname + "\n" + "Tamaño tablero: " + board_size;
         if(time_status) {
             this.log_content += " Tiempo total: " + (25 - Integer.parseInt(time)) + "\n";
@@ -52,7 +55,7 @@ public class ResultsActivity extends AppCompatActivity {
         }
         log.setText(log_content);
 
-        EditText email = (EditText)findViewById(R.id.editText3);
+        email = (EditText)findViewById(R.id.editText3);
         this.email_content = email.getText().toString();
 
         //Buttons
@@ -89,5 +92,21 @@ public class ResultsActivity extends AppCompatActivity {
             finishAffinity();
             System.exit(0);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("email", this.email.getText().toString());
+        outState.putString("log", this.log.getText().toString());
+        outState.putString("date", this.dateTime.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.email.setText(savedInstanceState.getString("email"));
+        this.log.setText(savedInstanceState.getString("log"));
+        this.dateTime.setText(savedInstanceState.getString("date"));
     }
 }

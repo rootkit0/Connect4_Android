@@ -12,7 +12,6 @@ import com.example.connect4.R;
 import com.example.connect4.logic.Position;
 
 public class LogFragment extends Fragment {
-
     private Bundle data;
     String nickname;
     int board_size;
@@ -62,5 +61,13 @@ public class LogFragment extends Fragment {
 
     public void addPosition(Position pos) {
         this.logs.append("Posicion ocupada: (" + pos.getRow() + "," + pos.getColumn() + ")\n");
+    }
+
+    public void onRestoreInstance(Bundle savedInstanceState) {
+        this.logs.setText(savedInstanceState.getString("logs"));
+    }
+
+    public String getLogs() {
+        return this.logs.getText().toString();
     }
 }

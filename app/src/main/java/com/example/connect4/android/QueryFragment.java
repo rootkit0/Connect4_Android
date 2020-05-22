@@ -1,5 +1,6 @@
 package com.example.connect4.android;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import androidx.fragment.app.ListFragment;
 import com.example.connect4.R;
 
 public class QueryFragment extends ListFragment {
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,5 +49,16 @@ public class QueryFragment extends ListFragment {
 
     public interface OnClickListener {
         void onItemClick(long id);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (OnClickListener) context;
+        }
+        catch(ClassCastException e) {
+            throw new ClassCastException(getActivity().toString());
+        }
     }
 }
